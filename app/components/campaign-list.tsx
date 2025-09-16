@@ -1,9 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
+import { Badge } from "@/app/components/ui/badge";
+import { Progress } from "@/app/components/ui/progress";
 import { Play, Pause, BarChart3, Download, Copy, Users, Phone, Clock } from "lucide-react";
-import type { Campaign } from "@shared/schema";
+import type { Campaign } from "@/app/data/campaign";
 
 interface CampaignListProps {
   campaigns: Campaign[];

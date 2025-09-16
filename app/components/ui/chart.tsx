@@ -8,6 +8,14 @@ import { cn } from "@/app/lib/utils"
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
+type Payload = {
+  value: number
+  name: string
+  dataKey: string
+  payload: unknown
+  color: string
+}
+
 export type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode
@@ -116,12 +124,12 @@ const ChartTooltipContent = React.forwardRef<
   (
     {
       active,
-      payload,
+      // payload,
       className,
       indicator = "dot",
       hideLabel = false,
       hideIndicator = false,
-      label,
+      // label,
       labelFormatter,
       labelClassName,
       formatter,
@@ -132,6 +140,8 @@ const ChartTooltipContent = React.forwardRef<
     ref
   ) => {
     const { config } = useChart()
+    const payload: Payload[] = []
+    const label = ""
 
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
@@ -188,7 +198,7 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const indicatorColor = color || item.color
 
             return (
               <div
@@ -199,7 +209,7 @@ const ChartTooltipContent = React.forwardRef<
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
+                  formatter(item.value, item.name, item, index, item.payload as Payload[])
                 ) : (
                   <>
                     {itemConfig?.icon ? (
@@ -261,16 +271,17 @@ const ChartLegend = RechartsPrimitive.Legend
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+    Pick<RechartsPrimitive.LegendProps, "verticalAlign"> & {
       hideIcon?: boolean
       nameKey?: string
     }
 >(
   (
-    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
+    { className, hideIcon = false, verticalAlign = "bottom", nameKey },
     ref
   ) => {
     const { config } = useChart()
+    const payload: Payload[] = []
 
     if (!payload?.length) {
       return null

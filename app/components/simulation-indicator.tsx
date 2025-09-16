@@ -1,5 +1,5 @@
-import { isSimulationMode } from '@/lib/queryClient';
-import { Badge } from '@/components/ui/badge';
+import { isSimulationMode } from '@/app/lib/queryClient';
+import { Badge } from '@/app/components/ui/badge';
 
 export function SimulationIndicator() {
   if (!isSimulationMode) return null;

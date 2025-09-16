@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table";
 import { Eye, Phone, Edit, Star } from "lucide-react";
-import type { Customer } from "@shared/schema";
+import type { Customer } from "@/app/data/customer";
 
 interface CustomerTableProps {
   customers: Customer[];
@@ -65,7 +65,7 @@ export function CustomerTable({
     );
   };
 
-  const formatLastInteraction = (date: Date | null) => {
+  const formatLastInteraction = (date: Date | null | undefined) => {
     if (!date) return "Never";
     
     const now = new Date();

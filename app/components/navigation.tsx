@@ -1,10 +1,11 @@
-import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/app/components/ui/button";
 import { useTheme } from "./theme-provider";
 import { Moon, Sun, Globe } from "lucide-react";
 
 export function Navigation() {
-  const [location] = useLocation();
+  const location = usePathname();
   const { theme, setTheme } = useTheme();
 
   const navItems = [
