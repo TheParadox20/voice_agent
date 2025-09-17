@@ -1,20 +1,234 @@
+
 @import "tailwindcss";
-
+/* Defining custom properties for Tailwind v4 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 9%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 0 0% 9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 0 0% 9%;
+  --radius: 0.5rem;
+  --success: 0 0% 9%;
+  --success-foreground: 0 0% 98%;
+  --analytics: 0 0% 9%;
+  --analytics-foreground: 0 0% 98%;
+  --warning: 0 0% 20%;
+  --warning-foreground: 0 0% 98%;
+  --dark-bg: 222.2 84% 4.9%;
+  --card-dark: 217.2 32.6% 17.5%;
 }
 
-@theme inline {
-  --color-background: var(--foreground);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --card: 217.2 32.6% 17.5%;
+  --card-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 217.2 32.6% 17.5%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 100%;
+  --analytics: 217 91% 60%;
+  --analytics-foreground: 0 0% 100%;
+  --warning: 45 93% 47%;
+  --warning-foreground: 0 0% 9%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Force Geist font application */
+html, body, * {
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Button styles */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: calc(var(--radius) - 2px);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  min-height: 36px;
+  padding: 8px 16px;
+}
+
+/* Primary button styles */
+button[data-variant="default"], .btn-primary, .bg-success {
+  background-color: hsl(var(--success));
+  color: hsl(var(--success-foreground));
+  border: 1px solid hsl(var(--success));
+}
+
+button[data-variant="default"]:hover, .btn-primary:hover, .bg-success:hover {
+  background-color: hsl(var(--success) / 0.9);
+}
+
+/* Black and white button styling */
+.bg-success {
+  background-color: hsl(var(--success));
+  color: hsl(var(--success-foreground));
+}
+
+/* Input styling */
+input, select, textarea {
+  display: block;
+  width: 100%;
+  border: 2px solid hsl(0 0% 75%);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: hsl(0 0% 9%);
+  box-shadow: 0 0 0 3px hsl(0 0% 9% / 0.1);
+}
+
+input:hover, select:hover, textarea:hover {
+  border-color: hsl(0 0% 50%);
+}
+
+/* Input with icons */
+.relative input {
+  padding-left: 44px;
+}
+
+/* Icon positioning */
+.relative .lucide {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Code elements use Geist Mono */
+code, kbd, pre, samp, .font-mono {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Ensure Geist font for specific elements */
+.font-sans, 
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button, 
+input, textarea, select, label,
+.text-sm, .text-base, .text-lg, .text-xl, .text-2xl, .text-3xl,
+nav, header, footer, main, section, article {
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Base layer for Tailwind utilities */
+:where([class]) {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom utility classes */
+.text-success {
+  color: hsl(var(--success));
+}
+
+.text-success-foreground {
+  color: hsl(var(--success-foreground));
+}
+
+.bg-success {
+  background-color: hsl(var(--success));
+}
+
+.bg-success-foreground {
+  background-color: hsl(var(--success-foreground));
+}
+
+.border-success {
+  border-color: hsl(var(--success));
+}
+
+.text-analytics {
+  color: hsl(var(--analytics));
+}
+
+.text-analytics-foreground {
+  color: hsl(var(--analytics-foreground));
+}
+
+.bg-analytics {
+  background-color: hsl(var(--analytics));
+}
+
+.bg-analytics-foreground {
+  background-color: hsl(var(--analytics-foreground));
+}
+
+.border-analytics {
+  border-color: hsl(var(--analytics));
+}
+
+.text-warning {
+  color: hsl(var(--warning));
+}
+
+.bg-warning {
+  background-color: hsl(var(--warning));
+}
+
+.border-warning {
+  border-color: hsl(var(--warning));
+}
+
+.bg-dark-bg {
+  background-color: hsl(var(--dark-bg));
+}
+
+.bg-card-dark {
+  background-color: hsl(var(--card-dark));
 }
